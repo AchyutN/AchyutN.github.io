@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Achyut Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0d1b2a;
+  --navy2:   #132234;
+  --navy3:   #1a2e44;
+  --navy4:   #243d57;
+  --amber:   #c9913a;
+  --amber2:  #e0aa56;
+  --amber3:  #f0c878;
+  --cream:   #f2ead8;
+  --cream2:  #d9cdb8;
+  --muted:   #7a8fa6;
+  --muted2:  #4d6478;
+  --border:  rgba(201,145,58,0.12);
+  --border2: rgba(201,145,58,0.22);
+  --sans:    'DM Sans', sans-serif;
+  --mono:    'DM Mono', monospace;
+  --serif:   'Playfair Display', serif;
+  --radius:  3px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 5rem;
+  background: rgba(13,27,42,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s;
+}
+
+.nav-logo {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.nav-logo em { font-style: normal; color: var(--amber); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 1px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s;
+}
+
+.nav-links a:hover { color: var(--cream2); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0 5rem;
+  position: relative;
+  overflow: hidden;
+  gap: 4rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 60% 50%, rgba(201,145,58,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(19,34,52,0.8) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-lines::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 50%;
+  border-left: 1px solid var(--border);
+}
+
+.hero-lines::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 5rem; right: 5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2) 30%, var(--border2) 70%, transparent);
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: rise 0.7s 0.1s ease forwards;
+}
+
+.eyebrow-line { width: 28px; height: 1px; background: var(--amber); }
+
+.eyebrow-text {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber2);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 5.5vw, 5.8rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+  opacity: 0;
+  animation: rise 0.7s 0.2s ease forwards;
+}
+
+.hero-role {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: rise 0.7s 0.3s ease forwards;
+}
+
+.hero-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cream2);
+  max-width: 440px;
+  line-height: 1.85;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: rise 0.7s 0.4s ease forwards;
+}
+
+.hero-desc strong { font-weight: 500; color: var(--cream); }
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: rise 0.7s 0.5s ease forwards;
+}
+
+.btn {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary { background: var(--amber); color: var(--navy); border: 1px solid var(--amber); }
+.btn-primary:hover { background: var(--amber2); border-color: var(--amber2); }
+.btn-outline { background: transparent; color: var(--cream2); border: 1px solid var(--border2); }
+.btn-outline:hover { border-color: var(--amber); color: var(--amber2); }
+
+.hero-right {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.hero-photo {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 3/4;
+  background: var(--navy2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  animation: rise 0.7s 0.3s ease forwards;
+}
+
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.75rem; color: var(--muted2);
+  font-size: 12px; text-align: center; padding: 1rem;
+}
+
+.hero-photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(transparent, rgba(13,27,42,0.95));
+  font-size: 11px; letter-spacing: 0.06em;
+  color: var(--amber2); text-transform: uppercase;
+}
+
+.data-strip {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 100%; max-width: 340px;
+  opacity: 0;
+  animation: rise 0.7s 0.5s ease forwards;
+}
+
+.data-cell {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border-right: 1px solid var(--border);
+  background: var(--navy2);
+}
+
+.data-cell:last-child { border-right: none; }
+
+.data-val {
+  font-family: var(--mono);
+  font-size: 1.05rem; font-weight: 500;
+  color: var(--amber2); line-height: 1; margin-bottom: 0.25rem;
+}
+
+.data-label {
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- SECTION COMMONS ---- */
+section { padding: 7rem 5rem; }
+section + section { border-top: 1px solid var(--border); }
+
+.section-label {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 3.5rem;
+}
+
+.label-num { font-family: var(--mono); font-size: 11px; color: var(--amber); letter-spacing: 0.08em; }
+.label-text { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.label-rule { flex: 1; height: 1px; background: var(--border); max-width: 120px; }
+
+/* ---- ABOUT ---- */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem; align-items: start;
+}
+
+.about-photo {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--navy2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+.about-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.about-photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.75rem; color: var(--muted2);
+  font-size: 12px; text-align: center; padding: 1rem;
+}
+
+.about-caption {
+  margin-top: 1rem; font-size: 11px;
+  color: var(--muted); letter-spacing: 0.06em;
+}
+
+.about-caption span { color: var(--amber); }
+
+.about-text h3 {
+  font-family: var(--serif); font-size: 1.4rem; font-weight: 400;
+  color: var(--cream); margin-bottom: 1.5rem; line-height: 1.4;
+}
+
+.about-text p {
+  font-size: 14px; font-weight: 300; color: var(--cream2);
+  line-height: 1.9; margin-bottom: 1.25rem;
+}
+
+.about-text p strong { font-weight: 500; color: var(--cream); }
+.about-text p em { font-style: italic; color: var(--amber2); font-family: var(--serif); }
+
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.5rem; margin-top: 2rem;
+}
+
+.skill-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 13px; color: var(--cream2);
+  padding: 0.6rem 0.75rem;
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: var(--radius); font-weight: 300;
+}
+
+.skill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+/* ---- EXPERIENCE ---- */
+.exp-list {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+.exp-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  background: var(--navy2);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.exp-row:last-child { border-bottom: none; }
+.exp-row:hover { background: var(--navy3); }
+
+.exp-left {
+  padding: 2rem;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+
+.exp-org {
+  font-size: 13px; font-weight: 500; color: var(--cream);
+  line-height: 1.4;
+}
+
+.exp-meta {
+  font-size: 11px; font-family: var(--mono);
+  color: var(--muted2); line-height: 1.5;
+}
+
+.exp-badge {
+  font-size: 10px; font-family: var(--mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.25rem 0.6rem; border-radius: 2px; border: 1px solid;
+  align-self: flex-start; margin-top: 0.5rem;
+}
+
+.exp-right { padding: 2rem; }
+
+.exp-title {
+  font-size: 0.95rem; font-weight: 500; color: var(--amber2);
+  margin-bottom: 1rem; letter-spacing: -0.01em;
+}
+
+.exp-bullets {
+  list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+}
+
+.exp-bullets li {
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  line-height: 1.75; padding-left: 1rem; position: relative;
+}
+
+.exp-bullets li::before {
+  content: '';
+  position: absolute; left: 0; top: 0.6em;
+  width: 4px; height: 4px;
+  border-radius: 50%; background: var(--amber);
+}
+
+@media (max-width: 900px) {
+  .exp-row { grid-template-columns: 1fr; }
+  .exp-left { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+}
+
+/* ---- PROJECTS ---- */
+.projects-list {
+  display: flex; flex-direction: column;
+  gap: 0; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  gap: 1.5rem; align-items: start;
+  padding: 2rem;
+  background: var(--navy2);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.project-row:last-child { border-bottom: none; }
+.project-row:hover { background: var(--navy3); }
+
+.project-index {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted2); padding-top: 0.2rem; letter-spacing: 0.06em;
+}
+
+.project-title {
+  font-size: 1rem; font-weight: 500; color: var(--cream);
+  margin-bottom: 0.4rem; letter-spacing: -0.01em;
+}
+
+.project-desc {
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  line-height: 1.75; max-width: 600px; margin-bottom: 0.9rem;
+}
+
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.ptag {
+  font-size: 11px; font-family: var(--mono);
+  padding: 0.2rem 0.6rem; border-radius: 2px;
+  border: 1px solid var(--border); color: var(--muted); background: var(--navy);
+}
+
+.ptag.amber { border-color: rgba(201,145,58,0.3); color: var(--amber2); }
+.ptag.green { border-color: rgba(61,180,120,0.3); color: #7ecba8; }
+
+.project-status-badge {
+  font-size: 10px; font-family: var(--mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.3rem 0.7rem; border-radius: 2px; border: 1px solid;
+  white-space: nowrap; align-self: start; margin-top: 0.15rem;
+}
+
+.psb-live { color: #7ecba8; border-color: rgba(61,180,120,0.3); background: rgba(61,180,120,0.06); }
+.psb-wip  { color: var(--amber2); border-color: rgba(201,145,58,0.3); background: rgba(201,145,58,0.06); }
+
+.terminal-card {
+  margin-top: 2rem;
+  background: var(--navy);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+.tc-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
+  background: var(--navy2);
+}
+
+.tc-dot { width: 9px; height: 9px; border-radius: 50%; }
+.tc-dot.r { background: #714040; }
+.tc-dot.y { background: #6b5d30; }
+.tc-dot.g { background: #3a5e45; }
+.tc-title { font-family: var(--mono); font-size: 11px; color: var(--muted2); margin-left: 0.5rem; letter-spacing: 0.04em; }
+
+.tc-body {
+  padding: 1.25rem 1.5rem;
+  font-family: var(--mono); font-size: 12.5px; line-height: 2;
+}
+
+.tc-comment { color: var(--muted2); }
+.tc-key     { color: #7ecba8; }
+.tc-val     { color: var(--amber2); }
+.tc-label   { color: var(--muted); }
+.tc-cursor  {
+  display: inline-block; width: 7px; height: 13px;
+  background: var(--amber);
+  animation: blink 1.1s step-end infinite;
+  vertical-align: middle; margin-left: 2px;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ---- TIMELINE ---- */
+.timeline-layout {
+  display: grid; grid-template-columns: 200px 1fr; gap: 0;
+}
+
+.tl-sidebar {
+  border-right: 1px solid var(--border);
+  padding-right: 2.5rem; padding-top: 0.25rem;
+}
+
+.tl-nav-item {
+  display: block; font-size: 12px; font-weight: 400;
+  color: var(--muted2); padding: 0.5rem 0;
+  cursor: pointer; border: none; background: none;
+  text-align: left; font-family: var(--sans);
+  transition: color 0.2s; width: 100%;
+}
+
+.tl-nav-item:hover { color: var(--cream2); }
+.tl-nav-item.active { color: var(--amber); font-weight: 500; }
+
+.tl-main { padding-left: 3rem; }
+
+.tl-entry {
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 2rem; align-items: flex-start;
+}
+
+.tl-entry:last-child { border-bottom: none; }
+
+.tl-entry-left { min-width: 110px; }
+
+.tl-phase-tag {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amber); display: block; margin-bottom: 0.3rem;
+}
+
+.tl-date { font-size: 12px; font-weight: 300; color: var(--muted); }
+
+.tl-status-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 0.75rem;
+}
+
+.tl-status-dot.now   { background: #7ecba8; box-shadow: 0 0 8px rgba(126,203,168,0.5); }
+.tl-status-dot.near  { background: var(--amber); }
+.tl-status-dot.later { background: var(--muted2); }
+
+.tl-entry-title {
+  font-size: 1rem; font-weight: 500; color: var(--cream);
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+
+.tl-entry-body {
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  line-height: 1.8; max-width: 520px;
+}
+
+.tl-entry-body strong { font-weight: 500; color: var(--cream2); }
+
+/* ---- CONTACT ---- */
+.contact-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+
+.contact-intro {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+  color: var(--cream); line-height: 1.5; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+}
+
+.contact-body {
+  font-size: 14px; font-weight: 300; color: var(--cream2);
+  line-height: 1.85; margin-bottom: 2rem;
+}
+
+.contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.clink {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none; color: var(--cream2);
+  font-size: 13px; font-weight: 400; transition: all 0.2s;
+}
+
+.clink:hover { border-color: var(--amber); color: var(--amber2); }
+.clink-left { display: flex; align-items: center; gap: 0.85rem; }
+.clink-icon { font-family: var(--mono); font-size: 11px; color: var(--muted2); width: 20px; }
+.clink-arrow { font-size: 12px; color: var(--muted2); transition: color 0.2s; }
+.clink:hover .clink-arrow { color: var(--amber); }
+
+.info-panel {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 1.25rem;
+}
+
+.info-panel-header {
+  padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--amber);
+}
+
+.info-panel-body { padding: 1.25rem; }
+
+.info-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 13px;
+}
+
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--muted); font-weight: 300; }
+.info-val { color: var(--cream2); font-weight: 400; font-family: var(--mono); font-size: 12px; }
+.info-val.amber { color: var(--amber2); }
+
+.privacy-note {
+  font-size: 11px; color: var(--muted2); line-height: 1.7;
+  padding: 1rem 0; border-top: 1px solid var(--border);
+}
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--border); padding: 1.75rem 5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--muted2); font-weight: 300;
+}
+
+footer a { color: var(--muted2); text-decoration: none; }
+footer a:hover { color: var(--amber); }
+
+/* ---- SCROLL REVEAL ---- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+  .hero-right { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .timeline-layout { grid-template-columns: 1fr; }
+  .tl-sidebar { display: none; }
+  .tl-main { padding-left: 0; }
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  .project-row { grid-template-columns: 2rem 1fr; }
+  .project-status-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Achyut <em>Nair</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#trajectory">Trajectory</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Chemical Engineering · UT Austin</span>
+    </div>
+
+    <h1 class="hero-name">Achyut Nair</h1>
+    <p class="hero-role">ChE · Class of December 2027</p>
+
+    <p class="hero-desc">
+      I build tools that connect <strong>engineering physics to commercial decisions.</strong>
+      My work spans computational modeling, deployed machine learning systems, and refinery
+      process analysis. Currently interning at <strong>Valero Energy, Ardmore OK</strong>
+      as a Valero Scholar.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View work</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo">
+       <img src="head-shot.jpg" alt="Achyut Nair" />
+      <div class="hero-photo-caption">Valero Scholar · Ardmore OK · Summer 2026</div>
+    </div>
+
+    <div class="data-strip">
+      <div class="data-cell">
+        <div class="data-val">0.94</div>
+        <div class="data-label">R² deployed</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-val">$50,000</div>
+        <div class="data-label">Saved via Automation Projects</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">
+    <span class="label-num">01</span>
+    <div class="label-rule"></div>
+    <span class="label-text">About</span>
+  </div>
+
+  <div class="about-layout">
+    <div class="reveal">
+      <div class="about-photo">
+         <img src="bullshit.jpg" alt="Achyut Nair" /> 
+      </div>
+      <p class="about-caption">UT Austin · Chemical Engineering · Sanding sidepod moulds for LHR</p>
+    </div>
+
+    <div class="about-text reveal">
+      <h3>Process engineering meets quantitative analysis.</h3>
+
+      <p>
+        I am a sophomore Chemical Engineering student at UT Austin. My work sits at the
+        boundary between <strong>physical simulation and data-driven modeling</strong>,
+        with experience across high-performance computing, computational fluid dynamics,
+        and deployed machine learning.
+      </p>
+
+      <p>
+        At the <strong>Oden Institute for Computational Engineering and Sciences,</strong>
+        I built automation workflows for large-scale HPC simulation pipelines. With
+        <strong>Longhorn Racing Formula SAE,</strong> I developed CFD and FEA tooling
+        alongside hybrid physics-ML models for performance prediction.
+      </p>
+
+      <p>
+        Through <em>VoltrixEdge / Racify,</em> I shipped a production model combining
+        Arrhenius kinetics with gradient-boosted trees, reaching R² = 0.94 on real-world
+        thermal data. This summer at <strong>Valero Ardmore</strong> I am applying
+        that analytical approach to refinery environmental engineering.
+      </p>
+
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-dot"></div>Python · NumPy · Pandas</div>
+        <div class="skill-item"><div class="skill-dot"></div>XGBoost · Scikit-Learn</div>
+        <div class="skill-item"><div class="skill-dot"></div>CFD / FEA Simulation</div>
+        <div class="skill-item"><div class="skill-dot"></div>HPC Automation</div>
+        <div class="skill-item"><div class="skill-dot"></div>Streamlit · Deployment</div>
+        <div class="skill-item"><div class="skill-dot"></div>Process Engineering</div>
+        <div class="skill-item"><div class="skill-dot"></div>Emissions Modeling</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">
+    <span class="label-num">02</span>
+    <div class="label-rule"></div>
+    <span class="label-text">Experience</span>
+  </div>
+
+  <div class="exp-list reveal">
+
+    <div class="exp-row">
+      <div class="exp-left">
+        <div class="exp-org">Roechling Industrial Composites</div>
+        <div class="exp-meta">Cleveland, OH · May 2025 – Aug 2025</div>
+        <span class="exp-badge psb-live">Internship</span>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Research and Development Intern</div>
+        <ul class="exp-bullets">
+          <li>Built simulation-assisted analysis workflows in ANSYS to integrate experimental data, reducing analysis time by 105 hours and saving $25K.</li>
+          <li>Analyzed process and materials data to identify performance trends across composite pultrusion lines and support process-level decisions.</li>
+          <li>Defined quantitative performance metrics (viscosity, transition temperature) to validate resin formulations across three production lines.</li>
+          <li>Conducted FTIR and DSC analysis to characterize resin chemistry across multiple curing conditions.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-left">
+        <div class="exp-org">Oden Institute for Computational Engineering</div>
+        <div class="exp-meta">Austin, TX · Dec 2024 – May 2025</div>
+        <span class="exp-badge psb-live">Research</span>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Computational Materials Researcher</div>
+        <ul class="exp-bullets">
+          <li>Executed large-scale DFT simulations on HPC infrastructure to validate machine learning predictions used in materials workflows.</li>
+          <li>Developed Bash and Python workflows to standardize high-throughput job scheduling and data ingestion across HPC environments.</li>
+          <li>Cleaned and transformed large-scale scientific datasets to support reproducible modeling, analysis, and technical documentation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-left">
+        <div class="exp-org">Longhorn Racing Combustion</div>
+        <div class="exp-meta">Austin, TX · Aug 2025 – Present</div>
+        <span class="exp-badge psb-wip">Current</span>
+      </div>
+      <div class="exp-right">
+        <div class="exp-title">Composites Engineer</div>
+        <ul class="exp-bullets">
+          <li>Built Python-based data pipelines to process simulation outputs from ANSYS Fluent, reducing decision turnaround time by 85%.</li>
+          <li>Authored standard operating procedures for fabrication, defining process parameters, quality checks, and repeatable execution.</li>
+          <li>Designed a resource and task-tracking system to improve operational efficiency and balance post-fabrication workflows.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">
+    <span class="label-num">03</span>
+    <div class="label-rule"></div>
+    <span class="label-text">Projects</span>
+  </div>
+
+  <div class="projects-list reveal">
+
+    <div class="project-row">
+      <div class="project-index">01</div>
+      <div class="project-body">
+        <div class="project-title">Arrhenius + XGBoost Hybrid Model</div>
+        <p class="project-desc">
+          Physics-constrained ML model combining Arrhenius reaction kinetics with gradient-boosted trees. Deployed production via VoltrixEdge / Racify. Demonstrates that embedding domain physics into feature engineering improves generalization for thermal systems.
+        </p>
+        <div class="project-tags">
+          <span class="ptag amber">XGBoost</span>
+          <span class="ptag amber">Arrhenius kinetics</span>
+          <span class="ptag green">R² = 0.94</span>
+          <span class="ptag">Deployed</span>
+        </div>
+      </div>
+      <span class="project-status-badge psb-live">Live</span>
+    </div>
+
+    <div class="project-row">
+      <div class="project-index">02</div>
+      <div class="project-body">
+        <div class="project-title">HPC Automation Pipelines — Oden Institute</div>
+        <p class="project-desc">
+          Research at UT Austin's Oden Institute. Developed automation workflows for high-performance computing simulation pipelines, reducing manual overhead in large-scale computational experiments.
+        </p>
+        <div class="project-tags">
+          <span class="ptag">HPC / MPI</span>
+          <span class="ptag">Python</span>
+          <span class="ptag">Shell scripting</span>
+          <span class="ptag amber">Oden Institute</span>
+        </div>
+      </div>
+      <span class="project-status-badge psb-live">Complete</span>
+    </div>
+
+    <div class="project-row">
+      <div class="project-index">03</div>
+      <div class="project-body">
+        <div class="project-title">CFD / FEA + Physics-ML — Longhorn Racing SAE</div>
+        <p class="project-desc">
+          Aerodynamic and structural simulation tooling for Longhorn Racing Formula SAE. Hybrid physics-ML models predict performance outcomes with reduced simulation cost by combining FEA structural data with learned correction terms.
+        </p>
+        <div class="project-tags">
+          <span class="ptag">CFD</span>
+          <span class="ptag">FEA</span>
+          <span class="ptag amber">Physics-ML</span>
+          <span class="ptag">Longhorn Racing</span>
+        </div>
+      </div>
+      <span class="project-status-badge psb-live">Complete</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- TRAJECTORY -->
+<section id="trajectory">
+  <div class="section-label">
+    <span class="label-num">04</span>
+    <div class="label-rule"></div>
+    <span class="label-text">Trajectory</span>
+  </div>
+
+  <div class="timeline-layout">
+    <div class="tl-sidebar">
+      <button class="tl-nav-item active">Now · Spring 2026</button>
+      <button class="tl-nav-item">Summer 2026</button>
+      <button class="tl-nav-item">Junior Year</button>
+      <button class="tl-nav-item">Summer 2027</button>
+      <button class="tl-nav-item">First Role · 2028</button>
+      <button class="tl-nav-item">Commercial · 2030</button>
+    </div>
+
+    <div class="tl-main reveal">
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 1A</span>
+          <span class="tl-date">Spring 2026</span>
+          <div class="tl-status-dot now"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Technical foundation and outreach</div>
+          <p class="tl-entry-body">Building emissions estimator v1 through v4. Establishing a public GitHub with deployable artifacts. Connecting with <strong>crude analysts, supply chain professionals, and traders</strong> at Valero, Chevron, Shell, and ExxonMobil. Reading Oil 101 (Downey) and completing Elevify Oil and Gas coursework.</p>
+        </div>
+      </div>
+
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 1B</span>
+          <span class="tl-date">Summer 2026</span>
+          <div class="tl-status-dot near"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Valero Ardmore internship</div>
+          <p class="tl-entry-body">Environmental Engineering intern at a full-complexity refinery running CDU, FCC, hydrotreating, and sulfur recovery. Building a <strong>compliance cost model on real plant data</strong> and targeting a conversation with the crude supply or commercial team before week 8.</p>
+        </div>
+      </div>
+
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 1C</span>
+          <span class="tl-date">2026 to 2027</span>
+          <div class="tl-status-dot later"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Junior year coursework and recruiting</div>
+          <p class="tl-entry-body">Core courses: CHE 363, M 427L, CHE 253M, CHE 364S Process Safety, CHE 359 Energy Policy. Summer 2027 recruiting begins <strong>week one of August 2026.</strong> Targets include ExxonMobil R&T, Emerson/AspenTech, Chevron Supply and Trading, and Shell process modeling.</p>
+        </div>
+      </div>
+
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 1D</span>
+          <span class="tl-date">Summer 2027</span>
+          <div class="tl-status-dot later"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Tier-up internship</div>
+          <p class="tl-entry-body">Targeting ExxonMobil Modeling and Optimization (Spring TX), Emerson intern rotation, or <strong>Chevron Supply and Trading analyst track.</strong></p>
+        </div>
+      </div>
+
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 2</span>
+          <span class="tl-date">2028 to 2030</span>
+          <div class="tl-status-dot later"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Planning and optimization analyst</div>
+          <p class="tl-entry-body">First role at an integrated refiner focused on planning, optimization, or commercial analysis. Building refinery P&L vocabulary and counterparty relationships. Targets include <strong>Valero, Marathon, Phillips 66, and Seeq.</strong></p>
+        </div>
+      </div>
+
+      <div class="tl-entry">
+        <div class="tl-entry-left">
+          <span class="tl-phase-tag">Phase 3</span>
+          <span class="tl-date">2030 onward</span>
+          <div class="tl-status-dot later"></div>
+        </div>
+        <div>
+          <div class="tl-entry-title">Crude commercial desk</div>
+          <p class="tl-entry-body">Crude commercial analyst building cargo book experience in West Africa, Latin America, or North American heavy crude. Mid-career targets include <strong>Vitol, Koch Supply and Trading, Trafigura, and Chevron S&T.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">
+    <span class="label-num">05</span>
+    <div class="label-rule"></div>
+    <span class="label-text">Contact</span>
+  </div>
+
+  <div class="contact-layout">
+    <div class="reveal">
+      <p class="contact-intro">Open to specific, substantive conversations.</p>
+      <p class="contact-body">
+        If you work in crude commercial, refinery planning, or process modeling, I am interested in one well-prepared question, not a generic ask. Reach out through any channel below.
+      </p>
+
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/achyutrn/" target="_blank" class="clink">
+          <div class="clink-left">
+            <span class="clink-icon">LI</span>
+            <span>LinkedkIn</span>
+          </div>
+          <span class="clink-arrow">↗</span>
+        </a>
+        <a href="mailto:achyut.nairutexas.edu" class="clink">
+          <div class="clink-left">
+            <span class="clink-icon">@</span>
+            <span>achyut.nair [@] utexas.edu</span>
+          </div>
+          <span class="clink-arrow">↗</span>
+        </a>
+       
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="info-panel">
+        <div class="info-panel-header">Current status</div>
+        <div class="info-panel-body">
+          <div class="info-row">
+            <span class="info-key">School</span>
+            <span class="info-val">UT Austin ChE</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Year</span>
+            <span class="info-val">Sophomore · Dec 2027</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Summer 2026</span>
+            <span class="info-val amber">Valero Ardmore</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Scholarship</span>
+            <span class="info-val">Valero Energy Scholar</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Next recruiting</span>
+            <span class="info-val amber">Aug 2026 · Summer 2027</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="privacy-note">
+        Resume downloads are logged with a timestamp and anonymized request metadata for analytics. No personally identifying information is stored beyond what you voluntarily share via email or LinkedIn.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Achyut Nair · UT Austin Chemical Engineering · Class of 2027</span>
+  <a href="#hero">Back to top ↑</a>
+</footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const tlBtns = document.querySelectorAll('.tl-nav-item');
+tlBtns.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    tlBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const entries = document.querySelectorAll('.tl-entry');
+    if (entries[i]) entries[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
+
+/*
+  RESUME DOWNLOAD TRACKING
+  -------------------------
+  Currently logs to console. To capture real IP + metadata, create a backend
+  endpoint (Cloudflare Worker, Netlify Function, or Express route) that:
+    1. Receives this POST payload
+    2. Reads request.headers['x-forwarded-for'] or cf.connecting_ip for the IP
+    3. Stores { ip, ts, ua, referrer } to a database or spreadsheet
+    4. Returns 200 OK
+
+  Then replace the fetch URL below with your endpoint.
+  Do not collect IP client-side: the browser does not expose its own IP.
+*/
+document.getElementById('resume-dl').addEventListener('click', () => {
+  const payload = {
+    event: 'resume_download',
+    ts: new Date().toISOString(),
+    referrer: document.referrer || 'direct',
+    ua: navigator.userAgent,
+    page: location.href
+  };
+  console.info('[download event]', payload);
+  // fetch('/api/log-download', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify(payload)
+  // });
+});
+
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.padding = window.scrollY > 60 ? '0.9rem 5rem' : '1.4rem 5rem';
+});
+</script>
+
+</body>
+</html>
